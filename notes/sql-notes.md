@@ -90,3 +90,10 @@ The cast to bigint formats the real number nicely, especially for big counts.
 There is additional info on this approach for partitioned tables
 
 [SO answer](https://stackoverflow.com/a/7945274)
+
+---
+when you need to select 1 row N times - it can be useful to use 'tally' table (which is just table of ordered numbers)
+
+https://stackoverflow.com/a/19830436/13608717
+
+---
