@@ -1,3 +1,7 @@
 theme: minima
 
+# to allow taking some notes that won't be published
 exclude: [notes]
+
+# to allow publishing notes that are published at day+1 when in UTC+X timezone where UTC would day+0
+future: true
