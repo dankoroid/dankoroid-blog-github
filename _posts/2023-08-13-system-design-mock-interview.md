@@ -3,7 +3,7 @@ title: "System design mock interview"
 date: 2023-08-13
 ---
 
-I've watched quite good [System Design Mock interview](https://www.youtube.com/watch?v=JWkyxKHItx4) (unfortunately, it is not longer available), here are some points from it:
+I've watched quite good System Design mock interview - [System Design Interview: "Design a library mgmt system" (with ex-Meta Senior SWE)](https://www.youtube.com/watch?v=JWkyxKHItx4) (unfortunately, it is not longer available, but I believe it was on [IGotAnOffer: Engineering](https://www.youtube.com/@IGotAnOffer-Engineering/videos) channel), here are some points from it:
 
 1. Use good visualization tool (here [Excalidraw](https://excalidraw.com/) is used) - it helps to visualize & separate/group your thoughts, write/illustrate your suggestions, make color codings, show interactions
 2. Good questions for start:
