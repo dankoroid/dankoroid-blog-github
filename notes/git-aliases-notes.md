@@ -14,7 +14,7 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
 ```
 [alias]
     #### TECH UTILITY COMMANDS ####
-    # get name of main branch for this repository (as there could be 'main', 'master', 'develop', etc)
+    # main-branch - get name of main branch for this repository (as there could be 'main', 'master', 'develop', etc)
     main-branch = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
 
     #### REPOSITORY STATE COMMANDS ####
@@ -23,7 +23,9 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
 
     #### CHECKOUT COMMANDS ####
     c = checkout
+    # cp - checkout to previous branch
     cp = checkout -
+    # cb - create new branch & checkout to it (branch name should be provided as argument)
     cb = "!sh -c \"git checkout -b $1\" -"
     cm = checkout master # replace master with main-branch?
 
@@ -36,14 +38,14 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
     pr = pull --rebase # review autostash option for pull
 
     #### GENERAL USEFUL COMMANDS ####
-    # get all git aliases
+    # aliases - get all git aliases
     aliases = !bash -c \"git config --get-regexp alias\"
 
-    # delete all branches but develop
+    # deletebranches - delete all branches but develop
     # replace develop with main-branch
     deletebranches = !bash -c \"git branch | grep -v \"develop\" | xargs git branch -D\"
 
-    # ammend to previous commit without changing message
+    # cane - ammend to previous commit without changing message
     cane = !bash -c \"git commit --amend --no-edit\"
 
     # Add alias for removing all files from staging
@@ -54,10 +56,10 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
     git reset --soft $(git merge-base master HEAD)
     git commit -m "one commit on yourBranch"
 
-    # stash + checkout master + pull --rebase + go to previous branch + merge
+    # mm - stash + checkout master + pull --rebase + go to previous branch + merge
     mm = "!sh -c \"git stash && git checkout master && git pull --rebase && git checkout - && git merge master\""
 
-    # branch related
+    # bl - branch related
     bl = branch --list
 
     # review autostash option for pull
