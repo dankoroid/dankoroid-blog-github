@@ -27,7 +27,8 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
     # cp - checkout to previous branch
     cp = checkout -
     # cb - create new branch & checkout to it (branch name should be provided as argument)
-    cb = "!sh -c \"git checkout -b $1\" -"
+    cb = "!f() { git checkout -b \"$1\"; }; f"
+    # cb - checkout to main branch
     cm = "!git checkout $(git main-branch)"
 
     #### STASH COMMANDS ####
@@ -35,19 +36,20 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
     sc = stash clear
 
     #### OPERATIONS WITH REMOTE ####
+    # po - push current branch to origin with same branch name
     po = push origin HEAD
-    pr = pull --rebase # review autostash option for pull
+    # pr - pulls remote to local with rebase & also autoapplying 'stash' and 'stash pop'
+    pr = pull --rebase --autostash
 
     #### GENERAL USEFUL COMMANDS ####
     # aliases - get all git aliases
-    aliases = !bash -c \"git config --get-regexp alias\"
+    aliases = !git config --get-regexp '^alias\\.'
 
-    # deletebranches - delete all branches but develop
-    # replace develop with main-branch
-    deletebranches = !bash -c \"git branch | grep -v \"develop\" | xargs git branch -D\"
+    # deletebranches - go to main-branch and delete all branches but main-branch
+    deletebranches = !git checkout $(git main-branch) && git branch | grep -v \"$(git main-branch)\" | xargs git branch -D
 
     # cane - ammend to previous commit without changing message
-    cane = !bash -c \"git commit --amend --no-edit\"
+    cane = commit --amend --no-edit
 
     # Add alias for removing all files from staging
     https://stackoverflow.com/questions/19730565/how-to-remove-files-from-git-staging-area/19730687#19730687
