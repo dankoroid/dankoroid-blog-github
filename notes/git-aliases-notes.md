@@ -28,7 +28,7 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
     cp = checkout -
     # cb - create new branch & checkout to it (branch name should be provided as argument)
     cb = "!sh -c \"git checkout -b $1\" -"
-    cm = checkout master # replace master with main-branch?
+    cm = "!git checkout $(git main-branch)"
 
     #### STASH COMMANDS ####
     sp = stash pop
