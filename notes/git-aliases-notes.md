@@ -3,12 +3,6 @@ title: "Useful Git aliases"
 date: 2023-08-14
 ---
 
-TODO: write as actual gitconfig - so could be copied
-
-TODO: add description to each command
-
-TODO: review function declarations (via f(){} instead of !sh or !bash?)
-
 Here is the list of Git aliases that I found useful and have in my gitconfig (located under `/%User%/.gitconfig` on Windows):
 
 ```
@@ -20,7 +14,10 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
 
     #### REPOSITORY STATE COMMANDS ####
     s = status
-    lp = log --pretty=oneline
+    # lp - pretty log last N commits (pass value as argument or default to 25)
+    lp = "!f() { git log --pretty=oneline -n ${1:-25}; }; f"
+    # bl - get all branches
+    bl = branch --list
 
     #### CHECKOUT COMMANDS ####
     c = checkout
@@ -51,21 +48,24 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
     # cane - ammend to previous commit without changing message
     cane = commit --amend --no-edit
 
-    # Add alias for removing all files from staging
-    https://stackoverflow.com/questions/19730565/how-to-remove-files-from-git-staging-area/19730687#19730687
+    # unstage - remove all files from staging
+    unstage = reset HEAD --
 
     # squash all commits on branch since main-branch
-    git switch yourBranch
-    git reset --soft $(git merge-base master HEAD)
-    git commit -m "one commit on yourBranch"
+    squash-since-main = "!f() { \
+        current_branch=HEAD; \
+        main_branch=$(git main_branch); \
+        base_commit=$(git merge-base $current_branch $main_branch); \
+        git reset --soft $base_commit; \
+        git commit -m \"$1\"; \
+    }; f"
 
     # mm - stash + checkout master + pull --rebase + go to previous branch + merge
-    mm = "!sh -c \"git stash && git checkout master && git pull --rebase && git checkout - && git merge master\""
-
-    # bl - branch related
-    bl = branch --list
-
-    # review autostash option for pull
-
-    https://stackoverflow.com/a/67672350/13608717
+    mm = "!f() { \
+        git stash; \
+        git cm; \
+        git pull --rebase; \
+        git checkout -; \
+        git merge $(git main-branch); \
+    }; f"
 ```
