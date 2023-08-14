@@ -69,3 +69,9 @@ https://stackoverflow.com/questions/19730565/how-to-remove-files-from-git-stagin
 
 ------
 https://ma.ttias.be/pretty-git-log-in-one-line/
+
+------
+https://stackoverflow.com/a/67672350/13608717
+
+------
+review autostash option for pull
