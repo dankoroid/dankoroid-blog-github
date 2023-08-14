@@ -15,6 +15,7 @@ Here is the list of Git aliases that I found useful and have in my gitconfig (lo
 [alias]
     #### TECH UTILITY COMMANDS ####
     # main-branch - get name of main branch for this repository (as there could be 'main', 'master', 'develop', etc)
+    # main-branch call could be replaced with name of specific branch 'main', 'master', 'develop' etc if needed
     main-branch = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
 
     #### REPOSITORY STATE COMMANDS ####
