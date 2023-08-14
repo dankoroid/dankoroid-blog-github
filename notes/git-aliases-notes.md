@@ -5,73 +5,66 @@ date: 2023-08-14
 
 TODO: write as actual gitconfig - so could be copied
 
-Here is the list of Git aliases that I found useful and have in my gitconfig (located under `/%User%/.gitconfig`):
-- `s = status`
-- `sp = stash pop`
-- `sc = stash clear`
-- `po = push origin HEAD`
-- `pr = pull --rebase`
-- `cp = checkout -` - this is checkout to previous branch
-- `cb = "!sh -c \"git checkout -b $1\" -"` - checkout to new branch (new branch name should be passed as argument)
-- `aliases = !bash -c \"git config --get-regexp alias\"`
-- `cane = !bash -c \"git commit --amend --no-edit\"` - ammend to previous commit without changing message
-- `deletebranches = !bash -c \"git branch | grep -v \"develop\" | xargs git branch -D\"` - double-check how to add multiple branches to be not deleted
-- `` - Add alias for removing all files from staging
-- `git switch yourBranch
-git reset --soft $(git merge-base master HEAD)
-git commit -m "one commit on yourBranch"` - how to squash all commits on branch (master is the branch that yourBranch diverged from) - https://stackoverflow.com/a/25357146
-- ``
-- ``
+TODO: add description to each command
 
------
+TODO: review function declarations (via f(){} instead of !sh or !bash?)
 
-git aliases:
+Here is the list of Git aliases that I found useful and have in my gitconfig (located under `/%User%/.gitconfig` on Windows):
 
+```
 [alias]
-  # status related
+	#### TECH UTILITY COMMANDS ####
+	# get name of main branch for this repository (as there could be 'main', 'master', 'develop', etc)
+	main-branch = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
+
+	#### REPOSITORY STATE COMMANDS ####
   s = status
+  lp = log --pretty=oneline
 
-  # checkout related
+	#### CHECKOUT COMMANDS ####
   c = checkout
-  cm = checkout master
-  # checkout to previous branch
   cp = checkout -
-  # checkout to new branch (new branch name should be passed as argument)
   cb = "!sh -c \"git checkout -b $1\" -"
+  cm = checkout master # replace master with main-branch?
 
-  # stash related
+  #### STASH COMMANDS ####
   sp = stash pop
   sc = stash clear
 
+  #### OPERATIONS WITH REMOTE ####
   po = push origin HEAD
-  pr = pull --rebase
-  
-  # branch related
-  bl = branch --list
+  pr = pull --rebase # review autostash option for pull
 
-  # general
+
+  #### GENERAL USEFUL COMMANDS ####
   # get all git aliases
   aliases = !bash -c \"git config --get-regexp alias\"
-  
-  # combined actions
-  # checkout to master and pull --rebase
-  cmpr = "!sh -c \"git checkout master && git pull --rebase\""
-  # stash + checkout master + pull --rebase + go to previous branch + merge
-  mm = "!sh -c \"git stash && git checkout master && git pull --rebase && git checkout - && git merge master\""
+
+  # delete all branches but develop
+  # replace develop with main-branch
+  deletebranches = !bash -c \"git branch | grep -v \"develop\" | xargs git branch -D\"
+
   # ammend to previous commit without changing message
   cane = !bash -c \"git commit --amend --no-edit\"
-  # delete all branches but master/main
-  deletebranches = !bash -c \"git branch | grep -v \"master$\" | grep -v \"main$\" | xargs git branch -D\"
 
-------
-------
+# Add alias for removing all files from staging
 https://stackoverflow.com/questions/19730565/how-to-remove-files-from-git-staging-area/19730687#19730687
 
-------
-https://ma.ttias.be/pretty-git-log-in-one-line/
+# squash all commits on branch since main-branch
+git switch yourBranch
+git reset --soft $(git merge-base master HEAD)
+git commit -m "one commit on yourBranch"
 
-------
-https://stackoverflow.com/a/67672350/13608717
+    # stash + checkout master + pull --rebase + go to previous branch + merge
+  mm = "!sh -c \"git stash && git checkout master && git pull --rebase && git checkout - && git merge master\""
 
-------
-review autostash option for pull
+ # branch related
+  bl = branch --list
+
+
+# review autostash option for pull
+
+
+  https://stackoverflow.com/a/67672350/13608717
+
+```
